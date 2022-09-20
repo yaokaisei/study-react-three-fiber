@@ -41,7 +41,11 @@
         "tsx": "never"
       }
     ],
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react/no-unknown-property": [
+      "error",
+      { "ignore": ["args", "position", "roughness"] }
+    ]
   },
   "settings": {
     "import/resolver": {
