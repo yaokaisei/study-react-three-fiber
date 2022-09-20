@@ -11,3 +11,41 @@
   width: min(100% - 2rem, 1200px);
   margin: 0 auto;
 }
+
+.box-contents {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  height: 100vh;
+  width: min(100% - 2rem, 1200px);
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.box-contents h1 {
+  font-weight: 900;
+  font-size: 5em;
+  margin: 0;
+  color: peru;
+  line-height: 1;
+}
+
+.box-contents label {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: min(100% - 2rem, 400px);
+  color: #fff;
+}
+
+.box-bg {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
