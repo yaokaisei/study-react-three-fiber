@@ -27,7 +27,7 @@
 
 .box-contents h1 {
   font-weight: 900;
-  font-size: clamp(4rem, 6.77vw, 6rem);
+  font-size: clamp(4rem, 6.77vw, 5rem);
   margin: 0;
   color: #cd853f;
   line-height: 1;

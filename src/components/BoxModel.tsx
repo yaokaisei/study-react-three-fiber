@@ -17,11 +17,17 @@ type BoxModelProps = {
 const Box: React.FC<BoxProps> = (props) => {
   // メッシュへのアクセス
   const mesh = useRef<Mesh>(null!);
+
+  // クリックアクティブのステート
   const [active, setActive] = useState(false);
 
-  useFrame(() => {
-    mesh.current.rotation.x += 0.01;
-    mesh.current.rotation.y += 0.01;
+  // モデルアニメーション
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    mesh.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 10;
+    mesh.current.rotation.x = Math.cos(t / 4) / 8;
+    mesh.current.rotation.y = Math.sin(t / 4) / 8;
+    mesh.current.position.y = (4 + Math.sin(t / 1.5)) / 4;
   });
 
   return (
@@ -45,13 +51,14 @@ const BoxModel: React.FC<BoxModelProps> = (props) => {
     <Canvas>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Box position={[0, 1, 0]} color={props.color} scale={props.scale} />
+      <pointLight position={[-10, -10, -10]} />
+      <Box position={[0, 2, 0]} color={props.color} scale={props.scale} />
       <OrbitControls
         autoRotate
         enablePan={false}
         enableZoom={false}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 2}
+        maxPolarAngle={Math.PI / 3}
+        minPolarAngle={Math.PI / 3}
       />
       <Stars radius={500} depth={50} count={1000} factor={10} />
     </Canvas>

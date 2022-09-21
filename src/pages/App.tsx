@@ -10,9 +10,9 @@ const App = () => {
     <div className="App">
       <div className="box-contents">
         <h1>
-          BOX
+          3D BOX
           <br />
-          Geometry
+          Customizer
         </h1>
 
         <label>
