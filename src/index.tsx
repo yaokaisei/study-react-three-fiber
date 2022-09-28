@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import 'src/styles/index.css';
+import 'src/index.css';
 import App from 'src/pages/App';
 import BoxCustomizer from 'src/pages/BoxCustomizer';
 import reportWebVitals from './reportWebVitals';

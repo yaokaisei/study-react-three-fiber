@@ -1,30 +1,72 @@
 import React, { useState } from 'react';
-import 'src/styles/App.css';
+import styled from '@emotion/styled';
+
 import BoxModel from 'src/components/BoxModel';
 
-const BoxCustomizer = () => {
+const Wrapper = styled.div`
+  background: linear-gradient(180deg, #272730 100%, #535375 50%);
+
+  & > .bg {
+    width: 100%;
+    height: 100vh;
+  }
+`;
+
+const Contents = styled.div`
+  position: absolute;
+  z-index: 1;
+  gap: 8px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  padding: clamp(40px, 6.77vw, 64px);
+
+  & h1 {
+    font-weight: 900;
+    font-size: clamp(4rem, 6.77vw, 5rem);
+    margin: 0;
+    color: #cd853f;
+    line-height: 1;
+  }
+`;
+
+const InputLabel = styled.label`
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: min(100% - 2rem, 400px);
+  color: #fff;
+
+  input {
+    width: 100%;
+  }
+`;
+
+const BoxCustomizer: React.FC = () => {
   const [colorCode, setColorCode] = useState('#5a40ce');
   const [scale, setScale] = useState(1);
 
   return (
-    <div className="BoxCustomizer">
-      <div className="box-contents">
+    <Wrapper>
+      <Contents>
         <h1>
           3D BOX
           <br />
           Customizer
         </h1>
 
-        <label>
+        <InputLabel>
           Box color
           <input
             type="color"
             value={colorCode}
             onChange={(event) => setColorCode(event.target.value)}
           />
-        </label>
+        </InputLabel>
 
-        <label>
+        <InputLabel>
           Box Scale
           <input
             type="number"
@@ -34,13 +76,13 @@ const BoxCustomizer = () => {
             value={scale}
             onChange={(event) => setScale(Number(event.target.value))}
           ></input>
-        </label>
-      </div>
+        </InputLabel>
+      </Contents>
 
-      <div className="box-bg">
+      <div className="bg">
         <BoxModel color={colorCode} scale={scale} />
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
