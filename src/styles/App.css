@@ -1,6 +1,5 @@
 .App {
   /* text-align: center; */
-  background: linear-gradient(180deg, #272730 100%, #535375 50%);
 }
 
 .l-wrapper {
@@ -11,6 +10,10 @@
 .l-wrapper > .inner {
   width: min(100% - 2rem, 1200px);
   margin: 0 auto;
+}
+
+.BoxCustomizer {
+  background: linear-gradient(180deg, #272730 100%, #535375 50%);
 }
 
 .box-contents {

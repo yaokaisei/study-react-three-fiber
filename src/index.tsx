@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import 'src/styles/index.css';
-import App from './pages/App';
+import App from 'src/pages/App';
+import BoxCustomizer from 'src/pages/BoxCustomizer';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -9,7 +11,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/box-customizer" element={<BoxCustomizer />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
 );
 
