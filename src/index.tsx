@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import 'src/index.css';
 import App from 'src/pages/App';
 import BoxCustomizer from 'src/pages/BoxCustomizer';
+import BootsCustom from 'src/pages/BootsCustom';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/box-customizer" element={<BoxCustomizer />} />
+        <Route path="/boots-custom" element={<BootsCustom />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

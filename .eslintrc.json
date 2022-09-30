@@ -44,7 +44,7 @@
     "import/no-unresolved": "off",
     "react/no-unknown-property": [
       "error",
-      { "ignore": ["args", "position", "roughness"] }
+      { "ignore": ["args", "position", "roughness", "intensity"] }
     ]
   },
   "settings": {
