@@ -23,7 +23,7 @@ const App: React.FC = () => {
           <a href="/box-customizer">3D BOX Customizer</a>
         </li>
         <li>
-          <a href="/boots-custom">Dr.Martin Customizer</a>
+          <a href="/my-aj1">My AJ1</a>
         </li>
       </ul>
     </Wrapper>
