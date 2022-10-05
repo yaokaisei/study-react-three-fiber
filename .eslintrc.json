@@ -42,10 +42,7 @@
       }
     ],
     "import/no-unresolved": "off",
-    "react/no-unknown-property": [
-      "error",
-      { "ignore": ["args", "position", "roughness", "intensity"] }
-    ]
+    "react/no-unknown-property": "off"
   },
   "settings": {
     "import/resolver": {

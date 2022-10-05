@@ -71,7 +71,6 @@ const ModelPath = '/assets/martens-boot.glb';
 export const Model: React.FC = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF(ModelPath) as GLTFResult;
 
-  /* eslint-disable react/no-unknown-property */
   return (
     <group {...props} dispose={null} position={[0, 0, 0]}>
       <group
