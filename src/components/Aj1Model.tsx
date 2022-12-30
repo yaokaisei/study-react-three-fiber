@@ -53,7 +53,7 @@ type GLTFResult = GLTF & {
 };
 
 /** glbファイルのパス */
-const ModelPath = '/assets/aj1.glb';
+const MODEL_PATH = '/assets/aj1.glb';
 
 const state = {
   items: {
@@ -76,7 +76,7 @@ const state = {
 };
 
 export const Model = (props: JSX.IntrinsicElements['group']) => {
-  const { nodes, materials } = useGLTF(ModelPath) as GLTFResult;
+  const { nodes, materials } = useGLTF(MODEL_PATH) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null} position={[0, 0.47, 0]}>
       <mesh
@@ -243,4 +243,4 @@ export const Model = (props: JSX.IntrinsicElements['group']) => {
   );
 };
 
-useGLTF.preload(ModelPath);
+useGLTF.preload(MODEL_PATH);

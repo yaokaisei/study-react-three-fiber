@@ -16,6 +16,7 @@ type BoxModelProps = {
 
 const Box: React.FC<BoxProps> = (props) => {
   // メッシュへのアクセス
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const mesh = useRef<Mesh>(null!);
 
   // クリックアクティブのステート
