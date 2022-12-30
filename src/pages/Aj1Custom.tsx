@@ -1,36 +1,75 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
-import { PointLightHelper } from 'three';
 import { Canvas } from '@react-three/fiber';
 import {
   OrbitControls,
-  useHelper,
   ContactShadows,
   PerspectiveCamera,
 } from '@react-three/drei';
 
+import {
+  materialSelector,
+  useMaterialState,
+} from 'src/globStates/materialColorState';
 import { Model } from 'src/components/Aj1Model';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background: #1c1c1c;
+`;
 
-  & > .bg {
+const WrapperCanvas = styled.div`
+  height: 100vh;
+`;
+
+const WrapperColorPicker = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  white-space: nowrap;
+  overflow: scroll;
+`;
+
+const InputLabel = styled.label`
+  display: inline-grid;
+  gap: 8px;
+  width: 80%;
+  max-width: min(100% - 2rem, 200px);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+
+  input {
     width: 100%;
-    height: 100vh;
+    height: 120px;
+    padding: 0;
+    background-color: transparent;
+    border: 0px;
   }
 `;
 
 const Aj1Custom: React.FC = () => {
-  const pointLightRef = useRef(null!);
+  const { material, setMaterial } = useMaterialState();
 
-  // useHelper(pointLightRef, PointLightHelper, 0.5, 'hotpink');
+  // TODO：更新したオブジェクトだけ残る事象を解消する
+  const updateTest = (key: string, newWeight: string) => {
+    setMaterial({
+      [key]: {
+        title: 'string',
+        color: newWeight,
+      },
+    });
+  };
+
+  console.log(materialSelector);
 
   return (
     <Wrapper>
-      <div className="bg">
+      <WrapperCanvas>
         <Canvas flat>
           <group>
             <axesHelper args={[30]} />
@@ -60,7 +99,23 @@ const Aj1Custom: React.FC = () => {
 
           <Model />
         </Canvas>
-      </div>
+      </WrapperCanvas>
+
+      <p>lorem500</p>
+      <WrapperColorPicker>
+        {Object.entries(material).map((item, index) => (
+          <InputLabel key={index}>
+            {item[1].title}
+            <input
+              type="color"
+              value={item[1].color}
+              onChange={(e) => {
+                updateTest(item[0], e.target.value);
+              }}
+            />
+          </InputLabel>
+        ))}
+      </WrapperColorPicker>
     </Wrapper>
   );
 };
