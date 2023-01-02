@@ -111,7 +111,7 @@ export const useMaterialColorValue = () => {
 export const useMaterialState = () => {
   const [material, setMaterial] = useRecoilState(materialRecoilState);
 
-  console.log(useRecoilValue(materialKeySelector('eyestay')));
+  // console.log(useRecoilValue(materialKeySelector('eyestay')));
 
   return {
     material: material,
