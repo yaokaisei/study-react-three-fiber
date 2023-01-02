@@ -27,7 +27,7 @@ type MaterialState = {
   };
 };
 
-export const materialRecoilState = atom<MaterialState>({
+const materialRecoilState = atom<MaterialState>({
   key: 'materialColorState',
   default: {
     foxing: {
@@ -93,15 +93,16 @@ export const materialRecoilState = atom<MaterialState>({
   },
 });
 
-export const materialSelector = selector({
-  key: 'materialSelector',
-  get: ({ get }) => {
-    return get(materialRecoilState);
-  },
-  set: ({ set }, newValue) => {
-    set(materialRecoilState, newValue);
-  },
-});
+// TODO：抽出したstateでも更新できるようにする。現状は読み取りだけしか対応していない
+export const materialKeySelector = (key: MaterialNameType) =>
+  selector({
+    key: 'materialKeySelector',
+    get: ({ get }) => get(materialRecoilState)[key],
+
+    // set: ({ set }, newValue) => {
+    //   set(materialRecoilState, newValue);
+    // },
+  });
 
 export const useMaterialColorValue = () => {
   return useRecoilValue(materialRecoilState);
@@ -109,6 +110,8 @@ export const useMaterialColorValue = () => {
 
 export const useMaterialState = () => {
   const [material, setMaterial] = useRecoilState(materialRecoilState);
+
+  console.log(useRecoilValue(materialKeySelector('eyestay')));
 
   return {
     material: material,

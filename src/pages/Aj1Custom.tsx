@@ -8,10 +8,7 @@ import {
   PerspectiveCamera,
 } from '@react-three/drei';
 
-import {
-  materialSelector,
-  useMaterialState,
-} from 'src/globStates/materialColorState';
+import { useMaterialState } from 'src/globStates/materialColorState';
 import { Model } from 'src/components/Aj1Model';
 
 const Wrapper = styled.div`
@@ -32,20 +29,27 @@ const WrapperColorPicker = styled.div`
   padding: 16px;
   white-space: nowrap;
   overflow: scroll;
+
+  > h2 {
+    position: sticky;
+    left: 0;
+    top: 0;
+    color: #fff;
+  }
 `;
 
 const InputLabel = styled.label`
   display: inline-grid;
   gap: 8px;
   width: 80%;
-  max-width: min(100% - 2rem, 200px);
+  max-width: min(100% - 2rem, 180px);
   color: #fff;
   font-weight: 700;
   text-align: center;
 
   input {
     width: 100%;
-    height: 120px;
+    height: 80px;
     padding: 0;
     background-color: transparent;
     border: 0px;
@@ -56,16 +60,84 @@ const Aj1Custom: React.FC = () => {
   const { material, setMaterial } = useMaterialState();
 
   // TODO：更新したオブジェクトだけ残る事象を解消する
-  const updateTest = (key: string, newWeight: string) => {
+  const materialColorChangeHandler = (key: string, newWeight: string) => {
     setMaterial({
       [key]: {
-        title: 'string',
         color: newWeight,
       },
     });
   };
 
-  console.log(materialSelector);
+  /**
+   * Preset event handler
+   *
+   * NOTE: Chicagoカラーでカラーパレットを一括変更
+   */
+  // TODO: stateを保持したまま関数として切り出す
+  const presetChangeHandler = () => {
+    setMaterial({
+      foxing: {
+        title: 'Foxing',
+        color: '#a23a39',
+      },
+      healOverlay: {
+        title: 'Heal Overlay',
+        color: '#a23a39',
+      },
+      heal: {
+        title: 'Heal',
+        color: '#333333',
+      },
+      quarter: {
+        title: 'Quarter',
+        color: '#ffffff',
+      },
+      sole: {
+        title: 'Sole',
+        color: '#a23a39',
+      },
+      quarterOverlay: {
+        title: 'Quarter Overlay',
+        color: '#a23a39',
+      },
+      tip: {
+        title: 'Tip',
+        color: '#a23a39',
+      },
+      vamp: {
+        title: 'Vamp',
+        color: '#ffffff',
+      },
+      label: {
+        title: 'Label',
+        color: '#a23a39',
+      },
+      logo: {
+        title: 'Logo',
+        color: '#333333',
+      },
+      eyestay: {
+        title: 'Eyestay',
+        color: '#a23a39',
+      },
+      swoosh: {
+        title: 'Swoosh',
+        color: '#333333',
+      },
+      midsole: {
+        title: 'Midsole',
+        color: '#ffffff',
+      },
+      laces: {
+        title: 'Laces',
+        color: '#333333',
+      },
+      tongue: {
+        title: 'Tongue',
+        color: '#ffffff',
+      },
+    });
+  };
 
   return (
     <Wrapper>
@@ -101,8 +173,11 @@ const Aj1Custom: React.FC = () => {
         </Canvas>
       </WrapperCanvas>
 
-      <p>lorem500</p>
       <WrapperColorPicker>
+        <h2>COLOR PICKER</h2>
+
+        <button onClick={presetChangeHandler}>Chicago Preset</button>
+
         {Object.entries(material).map((item, index) => (
           <InputLabel key={index}>
             {item[1].title}
@@ -110,7 +185,7 @@ const Aj1Custom: React.FC = () => {
               type="color"
               value={item[1].color}
               onChange={(e) => {
-                updateTest(item[0], e.target.value);
+                materialColorChangeHandler(item[0], e.target.value);
               }}
             />
           </InputLabel>
