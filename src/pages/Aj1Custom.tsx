@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import { Canvas } from '@react-three/fiber';
@@ -8,7 +8,10 @@ import {
   PerspectiveCamera,
 } from '@react-three/drei';
 
-import { useMaterialState } from 'src/globStates/materialColorState';
+import {
+  MaterialNameType,
+  useMaterialState,
+} from 'src/globStates/materialColorState';
 import { Model } from 'src/components/Aj1Model';
 
 const Wrapper = styled.div`
@@ -59,14 +62,19 @@ const InputLabel = styled.label`
 const Aj1Custom: React.FC = () => {
   const { material, setMaterial } = useMaterialState();
 
-  // TODO：更新したオブジェクトだけ残る事象を解消する
-  const materialColorChangeHandler = (key: string, newWeight: string) => {
-    setMaterial({
-      [key]: {
-        color: newWeight,
-      },
+  // TODO:keyの型をMaterialNameTypeにしたいが、エラーが起きるので解消する
+  const materialColorChangeHandler = (key: string, color: string) =>
+    setMaterial((prev) => {
+      return {
+        ...prev,
+        [key]: {
+          ...prev[key],
+          ...{
+            color: color,
+          },
+        },
+      };
     });
-  };
 
   /**
    * Preset event handler
@@ -174,22 +182,24 @@ const Aj1Custom: React.FC = () => {
       </WrapperCanvas>
 
       <WrapperColorPicker>
-        <h2>COLOR PICKER</h2>
+        <>
+          <h2>COLOR PICKER</h2>
 
-        <button onClick={presetChangeHandler}>Chicago Preset</button>
+          <button onClick={presetChangeHandler}>Chicago Preset</button>
 
-        {Object.entries(material).map((item, index) => (
-          <InputLabel key={index}>
-            {item[1].title}
-            <input
-              type="color"
-              value={item[1].color}
-              onChange={(e) => {
-                materialColorChangeHandler(item[0], e.target.value);
-              }}
-            />
-          </InputLabel>
-        ))}
+          {Object.entries(material).map((item, index) => (
+            <InputLabel key={index}>
+              {item[1].title}
+              <input
+                type="color"
+                value={item[1].color}
+                onChange={(e) => {
+                  materialColorChangeHandler(item[0], e.target.value);
+                }}
+              />
+            </InputLabel>
+          ))}
+        </>
       </WrapperColorPicker>
     </Wrapper>
   );

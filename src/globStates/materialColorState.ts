@@ -1,7 +1,7 @@
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
 
 /** AJ1マテリアルパーツ */
-type MaterialNameType =
+export type MaterialNameType =
   | 'foxing'
   | 'healOverlay'
   | 'heal'
@@ -20,8 +20,8 @@ type MaterialNameType =
 
 // TODO: 16真数で型ガードできるようにする
 /** AJ1マテリアルカラーパレット */
-type MaterialState = {
-  [key in MaterialNameType]?: {
+export type MaterialState = {
+  [key in MaterialNameType | string]: {
     title: string;
     color: string;
   };
@@ -93,25 +93,12 @@ const materialRecoilState = atom<MaterialState>({
   },
 });
 
-// TODO：抽出したstateでも更新できるようにする。現状は読み取りだけしか対応していない
-export const materialKeySelector = (key: MaterialNameType) =>
-  selector({
-    key: 'materialKeySelector',
-    get: ({ get }) => get(materialRecoilState)[key],
-
-    // set: ({ set }, newValue) => {
-    //   set(materialRecoilState, newValue);
-    // },
-  });
-
 export const useMaterialColorValue = () => {
   return useRecoilValue(materialRecoilState);
 };
 
 export const useMaterialState = () => {
   const [material, setMaterial] = useRecoilState(materialRecoilState);
-
-  // console.log(useRecoilValue(materialKeySelector('eyestay')));
 
   return {
     material: material,
