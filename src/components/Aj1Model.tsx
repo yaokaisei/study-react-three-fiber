@@ -92,7 +92,7 @@ export const Model = (props: JSX.IntrinsicElements['group']) => {
         geometry={nodes.Central_.geometry}
         material={materials.Quarter}
         material-color={useMaterialColorValue().quarter?.color}
-        position={[0.44, -0.08, 0.02]}
+        position={[0.44, -0.08, 0.017]}
         rotation={[Math.PI, -0.34, Math.PI]}
       />
       <mesh
@@ -162,7 +162,7 @@ export const Model = (props: JSX.IntrinsicElements['group']) => {
         geometry={nodes.Nike_.geometry}
         material={materials.Swoosh}
         material-color={useMaterialColorValue().swoosh?.color}
-        position={[0.75, 0, -0.09]}
+        position={[0.75, 0, -0.083]}
         rotation={[Math.PI / 2, 0, -Math.PI]}
       />
       <mesh
