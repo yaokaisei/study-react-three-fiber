@@ -162,24 +162,29 @@ const Aj1Custom: React.FC = () => {
     <Wrapper>
       <WrapperCanvas>
         <Canvas flat>
-          <group>
+          <>
+            {/* 開発ヘルパーガイド */}
             <axesHelper args={[30]} />
             <gridHelper args={[30, 30, 30]} position={[0, -0.65, 0]} />
-          </group>
+          </>
 
-          <PerspectiveCamera makeDefault position={[-10, 10, 20]} />
-
-          <directionalLight intensity={0.5} />
-          <ambientLight intensity={0.2} />
-
-          <OrbitControls
-            enablePan={false}
-            enableZoom
-            maxPolarAngle={Math.PI / 1}
-            minPolarAngle={Math.PI / 6}
-            maxDistance={8}
-            minDistance={3}
-          />
+          <>
+            {/* 照明 */}
+            <directionalLight intensity={0.5} />
+            <ambientLight intensity={0.2} />
+          </>
+          <>
+            {/* カメラ（PerspectiveCameraは初期状態のカメラ位置、OrbitControlsでホイール操作を有効化） */}
+            <PerspectiveCamera makeDefault position={[-10, 10, 20]} />
+            <OrbitControls
+              enablePan={false}
+              enableZoom
+              maxPolarAngle={Math.PI / 1}
+              minPolarAngle={Math.PI / 6}
+              maxDistance={10}
+              minDistance={3}
+            />
+          </>
           <ContactShadows
             position={[0, -0.65, 0]}
             scale={10}
@@ -187,7 +192,6 @@ const Aj1Custom: React.FC = () => {
             blur={2}
             rotation={[Math.PI / 2, 0, 0]}
           />
-
           <Model />
         </Canvas>
       </WrapperCanvas>

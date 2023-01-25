@@ -59,7 +59,7 @@ const MODEL_PATH = '/assets/aj1.glb';
 export const Model = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF(MODEL_PATH) as unknown as GLTFResult;
   return (
-    <group {...props} dispose={null} position={[0, 0.47, 0]}>
+    <group {...props} dispose={null} position={[0.4, 0.47, 0]}>
       <mesh
         geometry={nodes.Back_Down.geometry}
         material={materials.Foxing}
@@ -135,7 +135,7 @@ export const Model = (props: JSX.IntrinsicElements['group']) => {
         material={materials.Label}
         material-color={useMaterialColorValue().label?.color}
         position={[0.24, 1.42, 0.04]}
-        rotation={[1.6, -0.91, 1.6]}
+        rotation={[1.6, -0.99, 1.6]}
       />
       <mesh
         geometry={nodes.Logo.geometry}
