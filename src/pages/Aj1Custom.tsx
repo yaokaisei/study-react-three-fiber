@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
 import { Canvas } from '@react-three/fiber';
@@ -7,11 +7,10 @@ import {
   ContactShadows,
   PerspectiveCamera,
 } from '@react-three/drei';
+import { HexColorPicker, HexColorInput } from 'react-colorful';
 
-import {
-  MaterialNameType,
-  useMaterialState,
-} from 'src/globStates/materialColorState';
+import { useMaterialState } from 'src/globStates/materialColorState';
+
 import { Model } from 'src/components/Aj1Model';
 
 const Wrapper = styled.div`
@@ -31,7 +30,7 @@ const WrapperColorPicker = styled.div`
   width: 100%;
   padding: 16px;
   white-space: nowrap;
-  overflow: scroll;
+  overflow-y: auto;
 
   > h2 {
     position: sticky;
@@ -48,19 +47,28 @@ const InputLabel = styled.label`
   max-width: min(100% - 2rem, 180px);
   color: #fff;
   font-weight: 700;
+  padding: 10px;
   text-align: center;
 
   input {
     width: 100%;
-    height: 80px;
     padding: 0;
-    background-color: transparent;
     border: 0px;
+    border-radius: 8px;
+    padding: 5px 10px;
+    color: #1c1c1c;
+  }
+
+  .react-colorful {
+    width: 100%;
+    height: 160px;
   }
 `;
 
 const Aj1Custom: React.FC = () => {
   const { material, setMaterial } = useMaterialState();
+
+  const materialArray = Object.entries(material);
 
   // TODO:keyの型をMaterialNameTypeにしたいが、エラーが起きるので解消する
   const materialColorChangeHandler = (key: string, color: string) =>
@@ -83,67 +91,70 @@ const Aj1Custom: React.FC = () => {
    */
   // TODO: stateを保持したまま関数として切り出す
   const presetChangeHandler = () => {
-    setMaterial({
-      foxing: {
-        title: 'Foxing',
-        color: '#a23a39',
-      },
-      healOverlay: {
-        title: 'Heal Overlay',
-        color: '#a23a39',
-      },
-      heal: {
-        title: 'Heal',
-        color: '#333333',
-      },
-      quarter: {
-        title: 'Quarter',
-        color: '#ffffff',
-      },
-      sole: {
-        title: 'Sole',
-        color: '#a23a39',
-      },
-      quarterOverlay: {
-        title: 'Quarter Overlay',
-        color: '#a23a39',
-      },
-      tip: {
-        title: 'Tip',
-        color: '#a23a39',
-      },
-      vamp: {
-        title: 'Vamp',
-        color: '#ffffff',
-      },
-      label: {
-        title: 'Label',
-        color: '#a23a39',
-      },
-      logo: {
-        title: 'Logo',
-        color: '#333333',
-      },
-      eyestay: {
-        title: 'Eyestay',
-        color: '#a23a39',
-      },
-      swoosh: {
-        title: 'Swoosh',
-        color: '#333333',
-      },
-      midsole: {
-        title: 'Midsole',
-        color: '#ffffff',
-      },
-      laces: {
-        title: 'Laces',
-        color: '#333333',
-      },
-      tongue: {
-        title: 'Tongue',
-        color: '#ffffff',
-      },
+    setMaterial((prev) => {
+      return {
+        ...prev,
+        foxing: {
+          title: 'Foxing',
+          color: '#a23a39',
+        },
+        healOverlay: {
+          title: 'Heal Overlay',
+          color: '#a23a39',
+        },
+        heal: {
+          title: 'Heal',
+          color: '#333333',
+        },
+        quarter: {
+          title: 'Quarter',
+          color: '#ffffff',
+        },
+        sole: {
+          title: 'Sole',
+          color: '#a23a39',
+        },
+        quarterOverlay: {
+          title: 'Quarter Overlay',
+          color: '#a23a39',
+        },
+        tip: {
+          title: 'Tip',
+          color: '#a23a39',
+        },
+        vamp: {
+          title: 'Vamp',
+          color: '#ffffff',
+        },
+        label: {
+          title: 'Label',
+          color: '#a23a39',
+        },
+        logo: {
+          title: 'Logo',
+          color: '#333333',
+        },
+        eyestay: {
+          title: 'Eyestay',
+          color: '#a23a39',
+        },
+        swoosh: {
+          title: 'Swoosh',
+          color: '#333333',
+        },
+        midsole: {
+          title: 'Midsole',
+          color: '#ffffff',
+        },
+        laces: {
+          title: 'Laces',
+          color: '#333333',
+        },
+        tongue: {
+          title: 'Tongue',
+          color: '#ffffff',
+        },
+      };
     });
   };
 
@@ -187,15 +198,20 @@ const Aj1Custom: React.FC = () => {
 
           <button onClick={presetChangeHandler}>Chicago Preset</button>
 
-          {Object.entries(material).map((item, index) => (
+          {materialArray.map((item, index) => (
             <InputLabel key={index}>
               {item[1].title}
-              <input
-                type="color"
-                value={item[1].color}
-                onChange={(e) => {
-                  materialColorChangeHandler(item[0], e.target.value);
-                }}
+              <HexColorPicker
+                color={item[1].color}
+                onChange={(newColor: string) =>
+                  materialColorChangeHandler(item[0], newColor)
+                }
+              />
+              <HexColorInput
+                color={item[1].color}
+                onChange={(newColor: string) =>
+                  materialColorChangeHandler(item[0], newColor)
+                }
               />
             </InputLabel>
           ))}
