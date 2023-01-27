@@ -59,7 +59,12 @@ const MODEL_PATH = '/assets/aj1.glb';
 export const Model = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF(MODEL_PATH) as unknown as GLTFResult;
   return (
-    <group {...props} dispose={null} position={[0.4, 0.47, 0]}>
+    <group
+      {...props}
+      dispose={null}
+      position={[0.4, 0.9, 0]}
+      rotation={[0, 0, 0.2]}
+    >
       <mesh
         geometry={nodes.Back_Down.geometry}
         material={materials.Foxing}
