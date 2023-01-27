@@ -1,67 +1,76 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React, { useState } from 'react';
 
+import styled from '@emotion/styled';
 import { Canvas } from '@react-three/fiber';
 import {
   OrbitControls,
   ContactShadows,
   PerspectiveCamera,
 } from '@react-three/drei';
-import { HexColorPicker, HexColorInput } from 'react-colorful';
 
 import { useMaterialState } from 'src/globStates/materialColorState';
 
 import { Model } from 'src/components/Aj1Model';
+import ColorPicker from 'src/components/ColorPicker';
+import { css } from '@emotion/react';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background: #1c1c1c;
+  background: linear-gradient(180deg, #3f3f3f, #121212);
 `;
 
 const WrapperCanvas = styled.div`
   height: 100vh;
 `;
 
+const CustomArea = styled.div`
+  display: grid;
+  gap: 16px;
+  align-items: end;
+  grid-template-columns: 30% 70%;
+`;
+
 const WrapperColorPicker = styled.div`
   position: fixed;
+  display: grid;
+  gap: 20px;
   bottom: 0;
   width: 100%;
   padding: 16px;
-  white-space: nowrap;
-  overflow-y: auto;
-
-  > h2 {
-    position: sticky;
-    left: 0;
-    top: 0;
-    color: #fff;
-  }
 `;
 
-const InputLabel = styled.label`
-  display: inline-grid;
-  gap: 8px;
-  width: 80%;
-  max-width: min(100% - 2rem, 180px);
-  color: #fff;
-  font-weight: 700;
-  padding: 10px;
-  text-align: center;
+const ToggleButtons = styled.div`
+  display: flex;
+  gap: 12px;
+  white-space: nowrap;
+  overflow-y: auto;
+  padding: 10px 0;
+`;
 
-  input {
-    width: 100%;
-    padding: 0;
-    border: 0px;
-    border-radius: 8px;
-    padding: 5px 10px;
-    color: #1c1c1c;
-  }
-
-  .react-colorful {
-    width: 100%;
-    height: 160px;
+const ToggleButton = styled.button<{ iconColor: string; active: boolean }>`
+  position: relative;
+  min-width: 140px;
+  height: 140px;
+  font-size: 16px;
+  padding: 88px 0 14px;
+  border-radius: 20px;
+  border: none;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease-in-out;
+  ${({ active }) => css`
+    transform: translateY(${active ? '-8px' : '0'});
+  `}
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: ${({ iconColor }) => iconColor};
+    width: 60px;
+    height: 60px;
+    top: 16px;
+    border-radius: 50%;
   }
 `;
 
@@ -158,16 +167,12 @@ const Aj1Custom: React.FC = () => {
     });
   };
 
+  const [isCurrentMaterialKey, toggleCurrentMaterialKey] = useState('foxing');
+
   return (
     <Wrapper>
       <WrapperCanvas>
         <Canvas flat>
-          <>
-            {/* 開発ヘルパーガイド */}
-            <axesHelper args={[30]} />
-            <gridHelper args={[30, 30, 30]} position={[0, -0.65, 0]} />
-          </>
-
           <>
             {/* 照明 */}
             <directionalLight intensity={0.5} />
@@ -181,15 +186,15 @@ const Aj1Custom: React.FC = () => {
               enableZoom
               maxPolarAngle={Math.PI / 1}
               minPolarAngle={Math.PI / 6}
-              maxDistance={10}
+              maxDistance={8}
               minDistance={3}
             />
           </>
           <ContactShadows
-            position={[0, -0.65, 0]}
-            scale={10}
-            far={2}
-            blur={2}
+            position={[0, -0.75, 0]}
+            scale={20}
+            far={1}
+            blur={0.8}
             rotation={[Math.PI / 2, 0, 0]}
           />
           <Model />
@@ -197,29 +202,31 @@ const Aj1Custom: React.FC = () => {
       </WrapperCanvas>
 
       <WrapperColorPicker>
-        <>
-          <h2>COLOR PICKER</h2>
-
+        <ToggleButtons>
           <button onClick={presetChangeHandler}>Chicago Preset</button>
+        </ToggleButtons>
 
-          {materialArray.map((item, index) => (
-            <InputLabel key={index}>
-              {item[1].title}
-              <HexColorPicker
-                color={item[1].color}
-                onChange={(newColor: string) =>
-                  materialColorChangeHandler(item[0], newColor)
-                }
-              />
-              <HexColorInput
-                color={item[1].color}
-                onChange={(newColor: string) =>
-                  materialColorChangeHandler(item[0], newColor)
-                }
-              />
-            </InputLabel>
-          ))}
-        </>
+        <CustomArea>
+          <ColorPicker
+            color={material[isCurrentMaterialKey].color}
+            onChange={(newColor: string) =>
+              materialColorChangeHandler(isCurrentMaterialKey, newColor)
+            }
+          />
+
+          <ToggleButtons>
+            {materialArray.map((item, index) => (
+              <ToggleButton
+                key={index}
+                onClick={() => toggleCurrentMaterialKey(item[0])}
+                iconColor={item[1].color}
+                active={isCurrentMaterialKey === item[0]}
+              >
+                {item[1].title}
+              </ToggleButton>
+            ))}
+          </ToggleButtons>
+        </CustomArea>
       </WrapperColorPicker>
     </Wrapper>
   );
