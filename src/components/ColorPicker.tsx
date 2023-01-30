@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
 import { ColorPickerBaseProps } from 'react-colorful/dist/types';
 
 const Wrapper = styled.div`
+  background-color: #ededed;
+  padding: 16px;
+  border-radius: 16px;
+  display: grid;
+  gap: 16px;
+
   input {
     width: 100%;
     padding: 0;
@@ -19,11 +25,66 @@ const Wrapper = styled.div`
   }
 `;
 
-const ColorPicker = (props: Partial<ColorPickerBaseProps<string>>) => {
+const StylePresetColors = styled.ul`
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+`;
+
+const StylePresetColorButton = styled.button<{ color: string }>`
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: ${({ color }) => color};
+  border: 0;
+  border-radius: 50%;
+`;
+
+interface ColorPickerProps extends ColorPickerBaseProps<string> {
+  // TODO: オプショナルで定義できるようにする
+  presetColors: Array<string>;
+}
+
+const ColorPicker = (props: ColorPickerProps) => {
+  const [presetColors, setPresetColors] = useState<string[]>(
+    props.presetColors,
+  );
+
+  const addPresetColor = () => {
+    // NOTE: 重複した場合はプリセットカラーを追加しないように早期リターン
+    if (presetColors.some((color) => color === props.color)) return;
+
+    setPresetColors(presetColors.concat(props.color));
+  };
+
   return (
     <Wrapper>
       <HexColorPicker color={props.color} onChange={props.onChange} />
       <HexColorInput color={props.color} onChange={props.onChange} />
+
+      {presetColors && (
+        <>
+          {presetColors.length !== 0 && (
+            <StylePresetColors>
+              {presetColors.map((color, index) => (
+                <li key={index}>
+                  <StylePresetColorButton
+                    color={color}
+                    onClick={() => props.onChange(color)}
+                  >
+                    {color}
+                  </StylePresetColorButton>
+                </li>
+              ))}
+            </StylePresetColors>
+          )}
+
+          <button onClick={addPresetColor}>色追加</button>
+        </>
+      )}
     </Wrapper>
   );
 };

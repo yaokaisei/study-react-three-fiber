@@ -58,6 +58,7 @@ const ToggleButton = styled.button<{ iconColor: string; active: boolean }>`
   border-radius: 20px;
   border: none;
   display: grid;
+  background-color: #ededed;
   place-items: center;
   transition: transform 0.3s ease-in-out;
   ${({ active }) => css`
@@ -212,6 +213,7 @@ const Aj1Custom: React.FC = () => {
             onChange={(newColor: string) =>
               materialColorChangeHandler(isCurrentMaterialKey, newColor)
             }
+            presetColors={[]}
           />
 
           <ToggleButtons>
