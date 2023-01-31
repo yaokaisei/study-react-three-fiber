@@ -213,7 +213,6 @@ const Aj1Custom: React.FC = () => {
             onChange={(newColor: string) =>
               materialColorChangeHandler(isCurrentMaterialKey, newColor)
             }
-            presetColors={[]}
           />
 
           <ToggleButtons>

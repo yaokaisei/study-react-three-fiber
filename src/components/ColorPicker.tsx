@@ -44,20 +44,18 @@ const StylePresetColorButton = styled.button<{ color: string }>`
 `;
 
 interface ColorPickerProps extends ColorPickerBaseProps<string> {
-  // TODO: オプショナルで定義できるようにする
-  presetColors: Array<string>;
+  presetColors?: Array<string>;
 }
 
-const ColorPicker = (props: ColorPickerProps) => {
-  const [presetColors, setPresetColors] = useState<string[]>(
-    props.presetColors,
-  );
+const ColorPicker = ({ presetColors = [], ...props }: ColorPickerProps) => {
+  const [presetColorsState, setPresetColorsState] =
+    useState<string[]>(presetColors);
 
   const addPresetColor = () => {
     // NOTE: 重複した場合はプリセットカラーを追加しないように早期リターン
-    if (presetColors.some((color) => color === props.color)) return;
+    if (presetColorsState.some((color) => color === props.color)) return;
 
-    setPresetColors(presetColors.concat(props.color));
+    setPresetColorsState(presetColorsState.concat(props.color));
   };
 
   return (
@@ -65,26 +63,24 @@ const ColorPicker = (props: ColorPickerProps) => {
       <HexColorPicker color={props.color} onChange={props.onChange} />
       <HexColorInput color={props.color} onChange={props.onChange} />
 
-      {presetColors && (
-        <>
-          {presetColors.length !== 0 && (
-            <StylePresetColors>
-              {presetColors.map((color, index) => (
-                <li key={index}>
-                  <StylePresetColorButton
-                    color={color}
-                    onClick={() => props.onChange(color)}
-                  >
-                    {color}
-                  </StylePresetColorButton>
-                </li>
-              ))}
-            </StylePresetColors>
-          )}
+      <>
+        {presetColorsState.length !== 0 && (
+          <StylePresetColors>
+            {presetColorsState.map((color, index) => (
+              <li key={index}>
+                <StylePresetColorButton
+                  color={color}
+                  onClick={() => props.onChange(color)}
+                >
+                  {color}
+                </StylePresetColorButton>
+              </li>
+            ))}
+          </StylePresetColors>
+        )}
 
-          <button onClick={addPresetColor}>色追加</button>
-        </>
-      )}
+        <button onClick={addPresetColor}>色追加</button>
+      </>
     </Wrapper>
   );
 };
