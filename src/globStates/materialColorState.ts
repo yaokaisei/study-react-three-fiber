@@ -1,4 +1,10 @@
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+//標準でrecoil-persistというkey名でwebstorageに保存される（オプションで指定可能）
+const { persistAtom } = recoilPersist({
+  key: 'material-state',
+});
 
 /** AJ1マテリアルパーツ */
 export type MaterialNameType =
@@ -29,6 +35,7 @@ export type MaterialState = {
 
 const materialRecoilState = atom<MaterialState>({
   key: 'materialColorState',
+  effects_UNSTABLE: [persistAtom],
   default: {
     foxing: {
       title: 'Foxing',

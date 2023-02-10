@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { Canvas } from '@react-three/fiber';
 import {
   OrbitControls,
@@ -9,16 +10,14 @@ import {
 } from '@react-three/drei';
 
 import { useMaterialState } from 'src/globStates/materialColorState';
-
 import { Model } from 'src/components/Aj1Model';
 import ColorPicker from 'src/components/ColorPicker';
-import { css } from '@emotion/react';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background: linear-gradient(180deg, #3f3f3f, #121212);
+  background: linear-gradient(180deg, #232323, #121212);
 `;
 
 const WrapperCanvas = styled.div`
@@ -198,11 +197,23 @@ const Aj1Custom: React.FC = () => {
             blur={0.8}
             rotation={[Math.PI / 2, 0, 0]}
           />
-          <Model />
+          <Model position={[0, 0.9, 0]} rotation={[0, 0, 0.2]} />
         </Canvas>
       </WrapperCanvas>
 
       <WrapperColorPicker>
+        <ToggleButtons>
+          <a href="/my-aj1/gotem">ゴッテム</a>
+
+          <button
+            onClick={() => {
+              localStorage.removeItem('material-state');
+            }}
+          >
+            破棄
+          </button>
+        </ToggleButtons>
+
         <ToggleButtons>
           <button onClick={presetChangeHandler}>Chicago Preset</button>
         </ToggleButtons>
@@ -210,10 +221,10 @@ const Aj1Custom: React.FC = () => {
         <CustomArea>
           <ColorPicker
             color={material[isCurrentMaterialKey].color}
+            presetColors={[]}
             onChange={(newColor: string) =>
               materialColorChangeHandler(isCurrentMaterialKey, newColor)
             }
-            presetColors={[]}
           />
 
           <ToggleButtons>

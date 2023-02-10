@@ -7,6 +7,8 @@ import { RecoilRoot } from 'recoil';
 import App from 'src/pages/App';
 import BoxCustomizer from 'src/pages/BoxCustomizer';
 import Aj1Custom from 'src/pages/Aj1Custom';
+import Aj1Gotem from 'src/pages/Aj1Gotem';
+
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -20,6 +22,7 @@ root.render(
           <Route path="/" element={<App />} />
           <Route path="/box-customizer" element={<BoxCustomizer />} />
           <Route path="/my-aj1" element={<Aj1Custom />} />
+          <Route path="/my-aj1/gotem" element={<Aj1Gotem />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
