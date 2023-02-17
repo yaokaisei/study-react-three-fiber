@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Canvas } from '@react-three/fiber';
-import {
-  OrbitControls,
-  ContactShadows,
-  PerspectiveCamera,
-} from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Loader } from '@react-three/drei';
 
 import { useMaterialState } from 'src/globStates/materialColorState';
 import { Model } from 'src/components/Aj1Model';
 import ColorPicker from 'src/components/ColorPicker';
+import { Stage } from 'src/components/Stage';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -172,33 +169,23 @@ const Aj1Custom: React.FC = () => {
   return (
     <Wrapper>
       <WrapperCanvas>
-        <Canvas flat>
-          <>
-            {/* 照明 */}
-            <directionalLight intensity={0.5} />
-            <ambientLight intensity={0.2} />
-          </>
-          <>
-            {/* カメラ（PerspectiveCameraは初期状態のカメラ位置、OrbitControlsでホイール操作を有効化） */}
-            <PerspectiveCamera makeDefault position={[-10, 10, 20]} />
-            <OrbitControls
-              enablePan={false}
-              enableZoom
-              maxPolarAngle={Math.PI / 1}
-              minPolarAngle={Math.PI / 6}
-              maxDistance={8}
-              minDistance={3}
-            />
-          </>
-          <ContactShadows
-            position={[0, -0.75, 0]}
-            scale={20}
-            far={1}
-            blur={0.8}
-            rotation={[Math.PI / 2, 0, 0]}
+        <Canvas flat dpr={window.devicePixelRatio}>
+          {/* カメラ（PerspectiveCameraは初期状態のカメラ位置、OrbitControlsでホイール操作を有効化） */}
+          <PerspectiveCamera makeDefault position={[-10, Math.PI / 5, 20]} />
+          <OrbitControls
+            makeDefault
+            enablePan={false}
+            enableZoom
+            maxPolarAngle={Math.PI / 1}
+            minPolarAngle={Math.PI / 6}
+            maxDistance={12}
+            minDistance={5}
           />
-          <Model position={[0, 0.9, 0]} rotation={[0, 0, 0.2]} />
+          <Stage position={[0, 0.9, 0]} intensity={0}>
+            <Model rotation={[0, 0, 0.2]} />
+          </Stage>
         </Canvas>
+        <Loader />
       </WrapperCanvas>
 
       <WrapperColorPicker>

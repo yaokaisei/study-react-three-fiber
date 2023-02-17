@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows, PerspectiveCamera } from '@react-three/drei';
+import { Loader, PerspectiveCamera, Stage } from '@react-three/drei';
 
 import { Model } from 'src/components/Aj1Model';
 
@@ -20,21 +20,13 @@ const Aj1Gotem: React.FC = () => {
     <Wrapper>
       <WrapperCanvas>
         <Canvas flat>
-          <>
-            {/* 照明 */}
-            <directionalLight intensity={0.5} />
-            <ambientLight intensity={0.2} />
-          </>
-          <PerspectiveCamera makeDefault position={[-0.3, Math.PI / 5, 8]} />
-          <ContactShadows
-            position={[0, -0.75, 0]}
-            scale={20}
-            far={1}
-            blur={0.8}
-            rotation={[Math.PI / 2, 0, 0]}
-          />
-          <Model position={[0, 0.36, 0]} rotation={[0.04, 0.5, -0.01]} />
+          <PerspectiveCamera makeDefault position={[-0.3, Math.PI / 5, 80]} />
+
+          <Stage intensity={0}>
+            <Model position={[0, 0.36, 0]} rotation={[0.04, 0.5, -0.01]} />
+          </Stage>
         </Canvas>
+        <Loader />
       </WrapperCanvas>
     </Wrapper>
   );
