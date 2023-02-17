@@ -1,77 +1,22 @@
 import React, { useState } from 'react';
 
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Loader } from '@react-three/drei';
 
-import { useMaterialState } from 'src/globStates/materialColorState';
-import { Model } from 'src/components/Aj1Model';
-import ColorPicker from 'src/components/ColorPicker';
-import { Stage } from 'src/components/Stage';
+import { useMaterialState } from 'src/myAj1/globStates/materialColorState';
+import { Model } from 'src/myAj1/components/Aj1Model';
+import ColorPicker from 'src/myAj1/components/ColorPicker';
+import { Stage } from 'src/myAj1/components/Stage';
+import {
+  CustomArea,
+  ToggleButton,
+  ToggleButtons,
+  Wrapper,
+  WrapperCanvas,
+  WrapperColorPicker,
+} from './style';
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #232323, #121212);
-`;
-
-const WrapperCanvas = styled.div`
-  height: 100vh;
-`;
-
-const CustomArea = styled.div`
-  display: grid;
-  gap: 16px;
-  align-items: end;
-  grid-template-columns: 30% 70%;
-`;
-
-const WrapperColorPicker = styled.div`
-  position: fixed;
-  display: grid;
-  gap: 20px;
-  bottom: 0;
-  width: 100%;
-  padding: 16px;
-`;
-
-const ToggleButtons = styled.div`
-  display: flex;
-  gap: 12px;
-  white-space: nowrap;
-  overflow-y: auto;
-  padding: 10px 0;
-`;
-
-const ToggleButton = styled.button<{ iconColor: string; active: boolean }>`
-  position: relative;
-  min-width: 140px;
-  height: 140px;
-  font-size: 16px;
-  padding: 88px 0 14px;
-  border-radius: 20px;
-  border: none;
-  display: grid;
-  background-color: #ededed;
-  place-items: center;
-  transition: transform 0.3s ease-in-out;
-  ${({ active }) => css`
-    transform: translateY(${active ? '-8px' : '0'});
-  `}
-  &::before {
-    content: '';
-    position: absolute;
-    background-color: ${({ iconColor }) => iconColor};
-    width: 60px;
-    height: 60px;
-    top: 16px;
-    border-radius: 50%;
-  }
-`;
-
-const Aj1Custom: React.FC = () => {
+export const TopMyAj1: React.FC = () => {
   const { material, setMaterial } = useMaterialState();
 
   const materialArray = Object.entries(material);
@@ -190,7 +135,7 @@ const Aj1Custom: React.FC = () => {
 
       <WrapperColorPicker>
         <ToggleButtons>
-          <a href="/my-aj1/gotem">ゴッテム</a>
+          <a href="/my-aj1/gotem">シェア GOTE’M</a>
 
           <button
             onClick={() => {
@@ -231,5 +176,3 @@ const Aj1Custom: React.FC = () => {
     </Wrapper>
   );
 };
-
-export default Aj1Custom;

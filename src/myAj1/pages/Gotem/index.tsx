@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Loader, PerspectiveCamera, Stage } from '@react-three/drei';
 
-import { Model } from 'src/components/Aj1Model';
+import { Model } from 'src/myAj1/components/Aj1Model';
+import { Wrapper, WrapperCanvas } from './style';
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  background: #232323;
-`;
-const WrapperCanvas = styled.div`
-  height: 100vh;
-`;
-
-const Aj1Gotem: React.FC = () => {
+export const Gotem: React.FC = () => {
   return (
     <Wrapper>
       <WrapperCanvas>
@@ -31,5 +21,3 @@ const Aj1Gotem: React.FC = () => {
     </Wrapper>
   );
 };
-
-export default Aj1Gotem;

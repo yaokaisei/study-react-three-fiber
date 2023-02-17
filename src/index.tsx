@@ -6,8 +6,7 @@ import { RecoilRoot } from 'recoil';
 
 import Top from 'src/top/pages/Top';
 import BoxCustomizer from 'src/boxCustomizer/pages/BoxCustomizer';
-import Aj1Custom from 'src/pages/Aj1Custom';
-import Aj1Gotem from 'src/pages/Aj1Gotem';
+import { TopMyAj1, Gotem } from 'src/myAj1/pages';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -21,8 +20,8 @@ root.render(
         <Routes>
           <Route path="/" element={<Top />} />
           <Route path="/box-customizer" element={<BoxCustomizer />} />
-          <Route path="/my-aj1" element={<Aj1Custom />} />
-          <Route path="/my-aj1/gotem" element={<Aj1Gotem />} />
+          <Route path="/my-aj1" element={<TopMyAj1 />} />
+          <Route path="/my-aj1/gotem" element={<Gotem />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
