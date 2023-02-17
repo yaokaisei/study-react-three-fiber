@@ -4,8 +4,8 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import 'src/index.css';
 import { RecoilRoot } from 'recoil';
 
-import App from 'src/pages/App';
-import BoxCustomizer from 'src/pages/BoxCustomizer';
+import Top from 'src/top/pages/Top';
+import BoxCustomizer from 'src/boxCustomizer/pages/BoxCustomizer';
 import Aj1Custom from 'src/pages/Aj1Custom';
 import Aj1Gotem from 'src/pages/Aj1Gotem';
 
@@ -19,7 +19,7 @@ root.render(
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<Top />} />
           <Route path="/box-customizer" element={<BoxCustomizer />} />
           <Route path="/my-aj1" element={<Aj1Custom />} />
           <Route path="/my-aj1/gotem" element={<Aj1Gotem />} />

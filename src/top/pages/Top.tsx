@@ -13,7 +13,7 @@ const H1 = styled.h1`
   font-size: 4rem;
 `;
 
-const App: React.FC = () => {
+const Top: React.FC = () => {
   return (
     <Wrapper>
       <H1>HELLO WORLD</H1>
@@ -30,4 +30,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Top;

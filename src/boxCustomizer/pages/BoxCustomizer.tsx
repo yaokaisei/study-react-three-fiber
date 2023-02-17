@@ -1,48 +1,7 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
 
-import BoxModel from 'src/components/BoxModel';
-
-const Wrapper = styled.div`
-  background: linear-gradient(180deg, #272730 100%, #535375 50%);
-
-  & > .bg {
-    width: 100%;
-    height: 100vh;
-  }
-`;
-
-const Contents = styled.div`
-  position: absolute;
-  z-index: 1;
-  gap: 8px;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  bottom: 0;
-  width: 100%;
-  padding: clamp(40px, 6.77vw, 64px);
-
-  & h1 {
-    font-weight: 900;
-    font-size: clamp(4rem, 6.77vw, 5rem);
-    margin: 0;
-    color: #cd853f;
-    line-height: 1;
-  }
-`;
-
-const InputLabel = styled.label`
-  display: grid;
-  gap: 8px;
-  width: 100%;
-  max-width: min(100% - 2rem, 400px);
-  color: #fff;
-
-  input {
-    width: 100%;
-  }
-`;
+import { Stage, MeshBox } from 'src/boxCustomizer/components';
+import { Contents, InputLabel, ModelWrapper, Wrapper } from './style';
 
 const BoxCustomizer: React.FC = () => {
   const [colorCode, setColorCode] = useState('#5a40ce');
@@ -79,9 +38,11 @@ const BoxCustomizer: React.FC = () => {
         </InputLabel>
       </Contents>
 
-      <div className="bg">
-        <BoxModel color={colorCode} scale={scale} />
-      </div>
+      <ModelWrapper>
+        <Stage>
+          <MeshBox position={[0, 2, 0]} color={colorCode} scale={scale} />
+        </Stage>
+      </ModelWrapper>
     </Wrapper>
   );
 };
