@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Loader } from '@react-three/drei';
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  Loader,
+  ContactShadows,
+} from '@react-three/drei';
 
 import { useMaterialState } from 'src/myAj1/globStates/materialColorState';
 import { Model } from 'src/myAj1/components/Aj1Model';

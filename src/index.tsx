@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil';
 
 import Top from 'src/top/pages/Top';
 import BoxCustomizer from 'src/boxCustomizer/pages/BoxCustomizer';
-import { TopMyAj1, Gotem } from 'src/myAj1/pages';
+import { TopMyAj1, Gotem, ModelScreenshot } from 'src/myAj1/pages';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -22,6 +22,7 @@ root.render(
           <Route path="/box-customizer" element={<BoxCustomizer />} />
           <Route path="/my-aj1" element={<TopMyAj1 />} />
           <Route path="/my-aj1/gotem" element={<Gotem />} />
+          <Route path="/my-aj1/screenshot" element={<ModelScreenshot />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
