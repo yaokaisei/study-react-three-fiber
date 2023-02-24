@@ -47,7 +47,10 @@ interface ColorPickerProps extends ColorPickerBaseProps<string> {
   presetColors?: Array<string>;
 }
 
-const ColorPicker = ({ presetColors = [], ...props }: ColorPickerProps) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({
+  presetColors = [],
+  ...props
+}) => {
   const [presetColorsState, setPresetColorsState] =
     useState<string[]>(presetColors);
 
