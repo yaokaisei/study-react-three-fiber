@@ -26,7 +26,6 @@ const Top: React.FC = () => {
           <a href="/my-aj1">My AJ1</a>
         </li>
       </ul>
-      <h2>テスト</h2>
     </Wrapper>
   );
 };

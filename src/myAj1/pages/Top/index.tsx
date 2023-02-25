@@ -23,6 +23,15 @@ export const TopMyAj1: React.FC = () => {
   const [isCurrentMaterialKey, toggleCurrentMaterialKey] =
     useState<MaterialName>('Foxing');
 
+  /**
+   * デフォルトプリセットにステートを更新してから
+   * materialStateのローカルストレージを削除する
+   */
+  const resetMaterialState = async () => {
+    await setMaterials(DEFAULT_PRESET);
+    localStorage.removeItem('material-state');
+  };
+
   return (
     <Wrapper>
       <WrapperCanvas>
@@ -49,16 +58,7 @@ export const TopMyAj1: React.FC = () => {
         <ToggleButtons>
           <a href="/my-aj1/gotem">シェア GOTE’M</a>
 
-          <button
-            onClick={() => {
-              setMaterials(DEFAULT_PRESET);
-              setTimeout(() => {
-                localStorage.removeItem('material-state');
-              }, 0);
-            }}
-          >
-            デフォルトに戻す
-          </button>
+          <button onClick={resetMaterialState}>デフォルトに戻す</button>
         </ToggleButtons>
 
         <ToggleButtons>
