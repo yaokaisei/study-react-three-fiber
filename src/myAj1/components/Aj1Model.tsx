@@ -209,6 +209,7 @@ export const Model = (props: JSX.IntrinsicElements['group']) => {
         <mesh
           geometry={nodes.leftShoelace.geometry}
           material={materials.Laces}
+          material-color={useMaterialColorValue().laces?.color}
           position={[-0.4, 0.44, 1.11]}
           rotation={[-Math.PI, 1.56, -Math.PI]}
         />
