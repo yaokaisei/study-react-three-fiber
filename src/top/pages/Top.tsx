@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { useMaterial } from 'src/myAj1/globStates/materialState';
-import { CHICAGO_PRESET } from 'src/myAj1/constant/materialPreset';
-import { ColorButton } from 'src/myAj1/components/ColorButton';
 
 const Wrapper = styled.div`
   padding-top: clamp(40px, 6.77vw, 64px);
@@ -15,28 +12,6 @@ const Wrapper = styled.div`
 const H1 = styled.h1`
   font-size: 4rem;
 `;
-
-const MaterialButtons: React.FC = () => {
-  const { materials, setMaterials, setMaterialColor, getMaterialColor } =
-    useMaterial();
-
-  return (
-    <>
-      {materials.map(({ name, color }, index) => (
-        <ColorButton
-          label={name}
-          iconColor={color}
-          onClick={() => setMaterialColor({ name: name, color: '#cccccc' })}
-          key={index}
-        />
-      ))}
-      <button onClick={() => setMaterials(CHICAGO_PRESET)}>
-        Chicagoプリセット一括変更
-      </button>
-      <p>Foxingの色は {getMaterialColor('Foxing')}</p>
-    </>
-  );
-};
 
 const Top: React.FC = () => {
   return (
@@ -52,7 +27,6 @@ const Top: React.FC = () => {
         </li>
       </ul>
       <h2>テスト</h2>
-      <MaterialButtons />
     </Wrapper>
   );
 };

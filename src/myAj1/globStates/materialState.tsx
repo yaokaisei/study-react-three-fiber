@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { atom, useRecoilState } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { DEFAULT_PRESET } from '../constant/materialPreset';
 
+/* =======================================
+ * Type
+ ======================================= */
 export type MaterialName =
   | 'Foxing'
   | 'Heal Overlay'
@@ -24,11 +28,23 @@ export interface Material {
   color: string;
 }
 
+/* =======================================
+ * Atom
+ ======================================= */
+// NOTE: 標準でrecoil-persistというkey名でwebstorageに保存される（オプションで指定可能）
+const { persistAtom } = recoilPersist({
+  key: 'material-state',
+});
+
 const materialState = atom<Material[]>({
   key: 'materialState',
   default: DEFAULT_PRESET,
+  effects_UNSTABLE: [persistAtom],
 });
 
+/* =======================================
+ * Hooks
+ ======================================= */
 export const useMaterial = (array?: Material[]) => {
   const [materials, setMaterials] = useRecoilState(materialState);
 
@@ -62,7 +78,7 @@ export const useMaterial = (array?: Material[]) => {
       if (material.name === name) {
         return material.color;
       }
-      return null;
+      return '';
     });
 
     return getColor[0];

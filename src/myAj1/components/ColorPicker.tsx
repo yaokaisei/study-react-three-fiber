@@ -47,7 +47,7 @@ interface ColorPickerProps extends ColorPickerBaseProps<string> {
   presetColors?: Array<string>;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({
+export const ColorPicker: React.FC<ColorPickerProps> = ({
   presetColors = [],
   ...props
 }) => {
@@ -87,5 +87,3 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
     </Wrapper>
   );
 };
-
-export default ColorPicker;

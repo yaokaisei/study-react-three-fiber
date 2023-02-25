@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Loader } from '@react-three/drei';
 
-import { useMaterialState } from 'src/myAj1/globStates/materialColorState';
-import { Model } from 'src/myAj1/components/Aj1Model';
-import ColorPicker from 'src/myAj1/components/ColorPicker';
-import { Stage } from 'src/myAj1/components/Stage';
+import { MaterialName, useMaterial } from 'src/myAj1/globStates/materialState';
+import {
+  CHICAGO_PRESET,
+  DEFAULT_PRESET,
+} from 'src/myAj1/constant/materialPreset';
+import { Model, ColorPicker, Stage, ColorButton } from 'src/myAj1/components';
 import {
   CustomArea,
-  ToggleButton,
   ToggleButtons,
   Wrapper,
   WrapperCanvas,
@@ -17,99 +18,10 @@ import {
 } from './style';
 
 export const TopMyAj1: React.FC = () => {
-  const { material, setMaterial } = useMaterialState();
-
-  const materialArray = Object.entries(material);
-
-  // TODO:keyの型をMaterialNameTypeにしたいが、エラーが起きるので解消する
-  const materialColorChangeHandler = (key: string, color: string) =>
-    setMaterial((prev) => {
-      return {
-        ...prev,
-        [key]: {
-          ...prev[key],
-          ...{
-            color: color,
-          },
-        },
-      };
-    });
-
-  /**
-   * Preset event handler
-   *
-   * NOTE: Chicagoカラーでカラーパレットを一括変更
-   */
-  // TODO: stateを保持したまま関数として切り出す
-  const presetChangeHandler = () => {
-    setMaterial((prev) => {
-      return {
-        ...prev,
-        foxing: {
-          title: 'Foxing',
-          color: '#a23a39',
-        },
-        healOverlay: {
-          title: 'Heal Overlay',
-          color: '#a23a39',
-        },
-        heal: {
-          title: 'Heal',
-          color: '#333333',
-        },
-        quarter: {
-          title: 'Quarter',
-          color: '#ffffff',
-        },
-        sole: {
-          title: 'Sole',
-          color: '#a23a39',
-        },
-        quarterOverlay: {
-          title: 'Quarter Overlay',
-          color: '#a23a39',
-        },
-        tip: {
-          title: 'Tip',
-          color: '#a23a39',
-        },
-        vamp: {
-          title: 'Vamp',
-          color: '#ffffff',
-        },
-        label: {
-          title: 'Label',
-          color: '#a23a39',
-        },
-        logo: {
-          title: 'Logo',
-          color: '#333333',
-        },
-        eyestay: {
-          title: 'Eyestay',
-          color: '#a23a39',
-        },
-        swoosh: {
-          title: 'Swoosh',
-          color: '#333333',
-        },
-        midsole: {
-          title: 'Midsole',
-          color: '#ffffff',
-        },
-        laces: {
-          title: 'Laces',
-          color: '#333333',
-        },
-        tongue: {
-          title: 'Tongue',
-          color: '#ffffff',
-        },
-      };
-    });
-  };
-
-  const [isCurrentMaterialKey, toggleCurrentMaterialKey] = useState('foxing');
+  const { materials, setMaterials, setMaterialColor, getMaterialColor } =
+    useMaterial();
+  const [isCurrentMaterialKey, toggleCurrentMaterialKey] =
+    useState<MaterialName>('Foxing');
 
   return (
     <Wrapper>
@@ -139,36 +51,40 @@ export const TopMyAj1: React.FC = () => {
 
           <button
             onClick={() => {
-              localStorage.removeItem('material-state');
+              setMaterials(DEFAULT_PRESET);
+              setTimeout(() => {
+                localStorage.removeItem('material-state');
+              }, 0);
             }}
           >
-            破棄
+            デフォルトに戻す
           </button>
         </ToggleButtons>
 
         <ToggleButtons>
-          <button onClick={presetChangeHandler}>Chicago Preset</button>
+          <button onClick={() => setMaterials(CHICAGO_PRESET)}>
+            Chicago Preset
+          </button>
         </ToggleButtons>
 
         <CustomArea>
           <ColorPicker
-            color={material[isCurrentMaterialKey].color}
+            color={getMaterialColor(isCurrentMaterialKey)}
             presetColors={[]}
             onChange={(newColor: string) =>
-              materialColorChangeHandler(isCurrentMaterialKey, newColor)
+              setMaterialColor({ name: isCurrentMaterialKey, color: newColor })
             }
           />
 
           <ToggleButtons>
-            {materialArray.map((item, index) => (
-              <ToggleButton
+            {materials.map(({ name, color }, index) => (
+              <ColorButton
                 key={index}
-                onClick={() => toggleCurrentMaterialKey(item[0])}
-                iconColor={item[1].color}
-                active={isCurrentMaterialKey === item[0]}
-              >
-                {item[1].title}
-              </ToggleButton>
+                label={name}
+                onClick={() => toggleCurrentMaterialKey(name)}
+                iconColor={color}
+                active={isCurrentMaterialKey === name}
+              />
             ))}
           </ToggleButtons>
         </CustomArea>
