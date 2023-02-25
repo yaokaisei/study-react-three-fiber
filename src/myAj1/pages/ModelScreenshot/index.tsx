@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { Loader } from '@react-three/drei';
 
-import { Model } from 'src/myAj1/components/Aj1Model';
-import { Wrapper, CanvasWrapper, ContentsWrapper, Link } from './style';
-import { Stage } from 'src/myAj1/components/Stage';
-import { ImageLayerFrame } from 'src/myAj1/components/ImageLayerFrame';
 import { useUrl } from 'src/myAj1/globStates/screenshotDataUrl';
+import { Model, ImageLayerFrame, Stage } from 'src/myAj1/components';
+
+import { Wrapper, CanvasWrapper, ContentsWrapper, Link } from './style';
 
 const Scene: React.FC = () => {
   const { gl, scene, camera } = useThree();

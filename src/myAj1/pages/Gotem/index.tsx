@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { PerspectiveCamera, useProgress } from '@react-three/drei';
 
-import { Model } from 'src/myAj1/components/Aj1Model';
+import { Model, Stage } from 'src/myAj1/components';
+
 import {
   HeadingImage,
   Wrapper,
@@ -11,7 +12,6 @@ import {
   ContentsHeading,
   Button,
 } from './style';
-import { Stage } from 'src/myAj1/components/Stage';
 
 export const Gotem: React.FC = () => {
   const { active } = useProgress();
