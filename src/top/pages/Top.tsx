@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useMaterial } from 'src/myAj1/globStates/materialState';
 import { CHICAGO_PRESET } from 'src/myAj1/constant/materialPreset';
@@ -17,7 +17,8 @@ const H1 = styled.h1`
 `;
 
 const MaterialButtons: React.FC = () => {
-  const { materials, setMaterials, setMaterialColor } = useMaterial();
+  const { materials, setMaterials, setMaterialColor, getMaterialColor } =
+    useMaterial();
 
   return (
     <>
@@ -32,6 +33,7 @@ const MaterialButtons: React.FC = () => {
       <button onClick={() => setMaterials(CHICAGO_PRESET)}>
         Chicagoプリセット一括変更
       </button>
+      <p>Foxingの色は {getMaterialColor('Foxing')}</p>
     </>
   );
 };

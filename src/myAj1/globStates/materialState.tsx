@@ -54,7 +54,18 @@ export const useMaterial = (array?: Material[]) => {
   };
 
   const getMaterialColor = (name: MaterialName) => {
-    console.log(name, 'TODO: 引数からステートをフィルタリングする');
+    const filteringMaterials = materials.filter(
+      (material) => material.name === name,
+    );
+
+    const getColor = filteringMaterials.map((material) => {
+      if (material.name === name) {
+        return material.color;
+      }
+      return null;
+    });
+
+    return getColor[0];
   };
 
   return {
